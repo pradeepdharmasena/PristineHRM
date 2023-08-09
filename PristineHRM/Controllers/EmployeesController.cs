@@ -1,6 +1,8 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PristineHRM.Services;
 using PristineHRM.Services.DTOs;
+using System.Collections.ObjectModel;
 
 namespace PristineHRM.Controllers
 {
@@ -9,9 +11,11 @@ namespace PristineHRM.Controllers
     public class EmployeesController : ControllerBase
     {
         public readonly IEmployeesService _emplyeeService;
-        public EmployeesController(IEmployeesService emplyeesService)
+        public IMapper _mapper;
+        public EmployeesController(IEmployeesService emplyeesService, IMapper mapper)
         {
             _emplyeeService = emplyeesService;
+            _mapper = mapper;
         }
 
         [HttpPost]  
@@ -33,7 +37,8 @@ namespace PristineHRM.Controllers
             {
                 return NotFound();
             }
-            return Ok(employeesList);
+            var empDTOList = _mapper.Map<Collection<EmployeeDTO>>(employeesList);
+            return Ok(empDTOList);
         }
 
         [HttpGet("{id}")]
@@ -44,26 +49,31 @@ namespace PristineHRM.Controllers
             {
                 return NotFound();
             }
-            return Ok(employee);
+            var empDTO = _mapper.Map<EmployeeDTO>(employee);
+            return Ok(empDTO);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
-            var result = _emplyeeService.Delete(id);
-            if (result)
+            var emp = _emplyeeService.Delete(id);
+            if (emp is null)
             {
-                return Ok(result);
+                return BadRequest("NO SUCH EMPLYEE");
+                
             }
-            return BadRequest("NO SUCH EMPLYEE");
+            var empDTO = _mapper.Map<EmployeeDTO>(emp);
+            return Ok(empDTO);
+
         }
 
         [HttpPut]
         public IActionResult Update(EmployeeUpdateDTO emp)
         {
             var updatedEmplyee = _emplyeeService.Update(emp);
+            var empDTO = _mapper.Map<EmployeeDTO>(updatedEmplyee);
            
-             return Ok(updatedEmplyee);
+             return Ok(empDTO);
             
             
         }

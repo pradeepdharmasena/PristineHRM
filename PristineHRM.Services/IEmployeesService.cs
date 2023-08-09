@@ -18,6 +18,6 @@ namespace PristineHRM.Services
 
         public Employee? Update(EmployeeUpdateDTO emplyeeUpdateDTO);
 
-        public bool Delete(string empNo);
+        public Employee? Delete(string empNo);
     }
 }

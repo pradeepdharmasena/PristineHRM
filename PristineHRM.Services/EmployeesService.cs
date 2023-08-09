@@ -37,16 +37,16 @@ namespace PristineHRM.Services
                 return false;
             }
         }
-        public bool Delete(string empNo)
+        public Employee? Delete(string empNo)
         {
             var emplyee = GetById(empNo);
             if (emplyee != null)
             {
                 _emplyeeDbContext.Remove(emplyee);
                 _emplyeeDbContext.SaveChanges();
-                return true;
+                return emplyee;
             }
-            return false;
+            return null;
         }
 
         public Employee? Update(EmployeeUpdateDTO emplyeeUpdateDTO)
