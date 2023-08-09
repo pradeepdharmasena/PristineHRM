@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="DTOs\EmplyeeDTO.cs~RF51649632.TMP" />
+    <None Remove="DTOs\EmplyeeUpdateDTO.cs~RF52343477.TMP" />
+    <None Remove="DTOs\EmplyeeUpdateDTO.cs~RF523fb1d0.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="CoreEx.AutoMapper" Version="3.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PristineHRM.Models\PristineHRM.Models.csproj" />
+    <ProjectReference Include="..\PristineHRM.Repository\PristineHRM.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
